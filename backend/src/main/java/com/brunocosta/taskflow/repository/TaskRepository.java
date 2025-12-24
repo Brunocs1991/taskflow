@@ -1,6 +1,5 @@
 package com.brunocosta.taskflow.repository;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -94,22 +93,9 @@ public class TaskRepository {
         t.setTitle(d.getString("title"));
         t.setDescription(d.getString("description"));
         t.setStatus(TaskStatus.valueOf(d.getString("status")));
-        t.setCreatedAt(toInstant(d.get("createdAt")));
-        t.setUpdatedAt(toInstant(d.get("updatedAt")));
+        t.setCreatedAt(d.get("createdAt", Date.class).toInstant());
+        t.setUpdatedAt(d.get("updatedAt", Date.class).toInstant());
         return t;
-    }
-
-    private Instant toInstant(Object value) {
-        if (value == null) {
-            return null;
-        }
-        if (value instanceof Instant instant) {
-            return instant;
-        }
-        if (value instanceof Date date) {
-            return date.toInstant();
-        }
-        throw new IllegalArgumentException("Unsupported date type: " + value.getClass().getName());
     }
 
 }

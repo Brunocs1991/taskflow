@@ -15,6 +15,7 @@ public class IllegalArgumentExceptionHandler
         implements ExceptionHandler<IllegalArgumentException, HttpResponse<ApiErrorResponse>> {
 
     @Override
+    @SuppressWarnings("rawtypes")
     public HttpResponse<ApiErrorResponse> handle(HttpRequest request, IllegalArgumentException exception) {
         var body = new ApiErrorResponse(
                 "BAD_REQUEST",

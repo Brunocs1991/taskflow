@@ -14,13 +14,13 @@ import jakarta.inject.Singleton;
 public class NotFoundExceptionHandler implements ExceptionHandler<NotFoundException, HttpResponse<ApiErrorResponse>> {
 
     @Override
+    @SuppressWarnings("rawtypes")
     public HttpResponse<ApiErrorResponse> handle(HttpRequest request, NotFoundException exception) {
         var body = new ApiErrorResponse(
                 "NOT_FOUND",
                 exception.getMessage(),
                 List.of(),
-                Instant.now()
-        );
+                Instant.now());
         return HttpResponse.notFound(body);
     }
 }

@@ -22,7 +22,6 @@
     <micronaut.aot.enabled>false</micronaut.aot.enabled>
     <micronaut.aot.packageName>com.brunocosta.aot.generated</micronaut.aot.packageName>
     <exec.mainClass>com.brunocosta.Application</exec.mainClass>
-    <lombok.version>1.18.36</lombok.version>
   </properties>
 
   <repositories>
@@ -101,13 +100,13 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>${lombok.version}</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
   <build>
     <plugins>
       <plugin>
+        <?m2e execute onConfiguration,onIncremental?>
         <groupId>io.micronaut.maven</groupId>
         <artifactId>micronaut-maven-plugin</artifactId>
         <configuration>

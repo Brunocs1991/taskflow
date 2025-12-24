@@ -16,6 +16,7 @@ import java.util.List;
 public class ConstraintViolationHandler implements ExceptionHandler<ConstraintViolationException, HttpResponse<ApiErrorResponse>> {
 
     @Override
+    @SuppressWarnings("rawtypes")
     public HttpResponse<ApiErrorResponse> handle(HttpRequest request, ConstraintViolationException exception) {
 
         List<ApiErrorResponse.ApiFieldError> details = exception.getConstraintViolations()
