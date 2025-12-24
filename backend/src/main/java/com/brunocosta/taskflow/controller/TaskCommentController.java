@@ -12,9 +12,13 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Post;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+
+@Tag(name = "Task Comments")
 @Controller("/api/tasks/{id}/comments")
 @RequiredArgsConstructor
 public class TaskCommentController {
@@ -22,6 +26,7 @@ public class TaskCommentController {
     private final TaskCommentService taskCommentService;
 
     @Post
+    @Operation(summary = "Add a comment to a task")
     public HttpResponse<TaskCommentResponse> create(
             @PathVariable String id,
             @Body @Valid TaskCommentCreateRequest request) {
@@ -29,6 +34,7 @@ public class TaskCommentController {
     }
 
     @Get
+    @Operation(summary = "List comments for a task")
     public List<TaskCommentResponse> list(@PathVariable String id) {
         return taskCommentService.listComments(id);
     }

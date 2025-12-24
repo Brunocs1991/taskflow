@@ -1,7 +1,14 @@
 micronaut:
   application:
     name: taskflow
-
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+      swagger-ui:
+        paths: classpath:META-INF/swagger/views/swagger-ui
+        mapping: /swagger-ui/**
+        
 mongodb:
   uri: ${MONGODB_URI:`mongodb://root:root@localhost:27017/taskflow?authSource=admin`}
-
