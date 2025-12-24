@@ -20,3 +20,11 @@ O TaskFlow é um gerenciador simples de tarefas (com status e busca), com backen
 - Frontend funcional e claro
 - Stack completa dockerizada
 - Material pronto para portfólio (README, prints, vídeo e post técnico)
+
+## Testes
+
+Para rodar os testes do backend:
+
+```bash
+cd backend
+./mvnw test
