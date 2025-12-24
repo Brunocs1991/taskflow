@@ -1,0 +1,7 @@
+micronaut:
+  application:
+    name: taskflow
+
+mongodb:
+  uri: ${MONGODB_URI:`mongodb://root:root@localhost:27017/taskflow?authSource=admin`}
+
