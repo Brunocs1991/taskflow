@@ -4,12 +4,11 @@ import java.time.Instant;
 
 import org.bson.types.ObjectId;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Setter
 public class Task {
 
     private ObjectId id;

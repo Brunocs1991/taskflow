@@ -1,0 +1,62 @@
+package com.brunocosta.taskflow.controller;
+
+import java.util.List;
+
+import com.brunocosta.taskflow.domain.TaskStatus;
+import com.brunocosta.taskflow.dto.TaskCreateRequest;
+import com.brunocosta.taskflow.dto.TaskResponse;
+import com.brunocosta.taskflow.service.TaskService;
+
+import io.micronaut.http.HttpResponse;
+import io.micronaut.http.annotation.Body;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Delete;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.PathVariable;
+import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.Put;
+import io.micronaut.http.annotation.QueryValue;
+import jakarta.annotation.Nullable;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+
+@Controller("/api/tasks")
+public class TaskController {
+
+    private final TaskService service;
+
+    public TaskController(TaskService service) {
+        this.service = service;
+    }
+
+    @Post
+    public HttpResponse<TaskResponse> create(@Body @Valid TaskCreateRequest request) {
+        return HttpResponse.created(service.create(request));
+    }
+
+    @Get("/{id}")
+    public TaskResponse getById(@PathVariable String id) {
+        return service.getById(id);
+    }
+
+    @Put("/{id}")
+    public TaskResponse update(@PathVariable String id, @Body @Valid TaskCreateRequest request) {
+        return service.update(id, request);
+    }
+
+    @Delete("/{id}")
+    public HttpResponse<?> delete(@PathVariable String id) {
+        service.delete(id);
+        return HttpResponse.noContent();
+    }
+
+    @Get
+    public List<TaskResponse> list(
+            @QueryValue(defaultValue = "0") @Min(0) Integer page,
+            @QueryValue(defaultValue = "10") @Min(1) @Max(50) Integer size,
+            @Nullable @QueryValue TaskStatus status,
+            @Nullable @QueryValue String q) {
+        return service.list(page, size, status, q);
+    }
+}
