@@ -9,6 +9,27 @@ micronaut:
       swagger-ui:
         paths: classpath:META-INF/swagger/views/swagger-ui
         mapping: /swagger-ui/**
-        
+  server:
+    cors:
+      enabled: true
+      configurations:
+        web:
+          allowed-origins:
+            - http://localhost:5173
+          allowed-methods:
+            - GET
+            - POST
+            - PUT
+            - DELETE
+            - OPTIONS
+          allowed-headers:
+            - Content-Type
+            - Authorization
+            - Accept
+            - Origin
+            - X-Requested-With
+          exposed-headers:
+            - Location
+          max-age: 3600
 mongodb:
   uri: ${MONGODB_URI:`mongodb://root:root@localhost:27017/taskflow?authSource=admin`}
