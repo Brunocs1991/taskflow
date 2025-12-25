@@ -14,14 +14,19 @@ import com.brunocosta.taskflow.repository.TaskCommentRepository;
 import com.brunocosta.taskflow.repository.TaskRepository;
 
 import jakarta.inject.Singleton;
-import lombok.RequiredArgsConstructor;
 
 @Singleton
-@RequiredArgsConstructor
 public class TaskCommentService {
 
     private final TaskRepository taskRepository;
     private final TaskCommentRepository taskCommentRepository;
+
+    
+
+    public TaskCommentService(TaskRepository taskRepository, TaskCommentRepository taskCommentRepository) {
+        this.taskRepository = taskRepository;
+        this.taskCommentRepository = taskCommentRepository;
+    }
 
     public TaskCommentResponse addComment(String taskId, TaskCommentCreateRequest request) {
         ObjectId taskOid = parseObjectId(taskId);

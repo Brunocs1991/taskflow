@@ -15,15 +15,17 @@ import io.micronaut.http.annotation.Post;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 
 
 @Tag(name = "Task Comments")
 @Controller("/api/tasks/{id}/comments")
-@RequiredArgsConstructor
 public class TaskCommentController {
 
     private final TaskCommentService taskCommentService;
+
+    public TaskCommentController(TaskCommentService taskCommentService) {
+        this.taskCommentService = taskCommentService;
+    }
 
     @Post
     @Operation(summary = "Add a comment to a task")

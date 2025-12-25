@@ -1,0 +1,45 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: taskflow-mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: taskflow-backend
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    environment:
+      MONGODB_URI: mongodb://root:root@mongo:27017/taskflow?authSource=admin
+      MICRONAUT_SERVER_CORS_ENABLED: "true"
+      MICRONAUT_SERVER_CORS_CONFIGURATIONS_WEB_ALLOWED_ORIGINS: "http://localhost:3000"
+      MICRONAUT_SERVER_CORS_CONFIGURATIONS_WEB_ALLOWED_METHODS: "GET,POST,PUT,DELETE,OPTIONS"
+      MICRONAUT_SERVER_CORS_CONFIGURATIONS_WEB_ALLOWED_HEADERS: "Content-Type,Authorization,Accept,Origin,X-Requested-With"
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:8080
+    container_name: taskflow-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3001:80"
+
+volumes:
+  mongo_data:

@@ -14,11 +14,13 @@ import com.brunocosta.taskflow.error.NotFoundException;
 import com.brunocosta.taskflow.repository.TaskRepository;
 
 import jakarta.inject.Singleton;
-import lombok.RequiredArgsConstructor;
 
 @Singleton
-@RequiredArgsConstructor
 public class TaskService {
+
+    public TaskService(TaskRepository repository) {
+        this.repository = repository;
+    }
 
     private final TaskRepository repository;
 
